@@ -1,0 +1,15 @@
+---
+import { defaultLang } from "../locales/Locales";
+import { isSupportedLocale } from "../i18n/I18nUtils";
+
+const lang =
+  (Astro.request.headers.get("accept-language") ?? "")
+    .split(",")
+    .map((part) => part.split(";")[0].trim().substring(0, 2).toLowerCase())
+    .find((code) => isSupportedLocale(code)) ?? defaultLang;
+
+Astro.response.status = 302;
+Astro.response.headers.set("Location", `/${lang}/`);
+Astro.response.headers.set("Vary", "Accept-Language");
+Astro.response.headers.set("Cache-Control", "no-store");
+---

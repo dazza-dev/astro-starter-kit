@@ -1,0 +1,26 @@
+---
+import BlogDetailView from "../../../theme/views/BlogDetailView.astro";
+import { getPostBySlug } from "../../../lib/blog";
+import { isSupportedLocale } from "../../../i18n/I18nUtils";
+
+const { lang, slug } = Astro.params;
+
+if (!lang || !isSupportedLocale(lang) || !slug) {
+  return Astro.rewrite("/404");
+}
+
+let post;
+
+try {
+  post = await getPostBySlug(slug, lang);
+} catch (error) {
+  console.error("[lang/blog/slug] Error fetching data:", error);
+  return Astro.rewrite("/500");
+}
+
+if (!post) {
+  return Astro.rewrite("/404");
+}
+---
+
+<BlogDetailView post={post} />

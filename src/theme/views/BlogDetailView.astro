@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import ImagePlaceholder from "../../components/ImagePlaceholder.astro";
+import { getLangFromUrl, useTranslations } from "../../i18n/I18nUtils";
+import { buildUrl } from "../../lib/url";
+import { stripHtml, sanitizeHtml } from "../../lib/utils";
+import type { Post } from "../../types/blog";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const imageUrl = post.featuredImage?.node.sourceUrl;
+const imageAlt = post.featuredImage?.node.altText || post.title;
+const categories = post.categories?.nodes ?? [];
+const description = post.excerpt ? stripHtml(post.excerpt) : "";
+const date = new Date(post.date).toLocaleDateString(lang, {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const breadcrumbItems = [
+  { name: t("nav.home"), href: buildUrl(lang) },
+  { name: t("blog.title"), href: buildUrl(lang, "blog") },
+  { name: post.title },
+];
+---
+
+<Layout title={`${post.title} | Blog`} description={description}>
+  <main class="mx-auto max-w-3xl px-6 py-16">
+    <Breadcrumb items={breadcrumbItems} />
+
+    <div class="mb-4 text-sm text-gray-500">
+      <time>{date}</time>
+      {categories.length > 0 && (
+        <span>
+          {" "}&middot;{" "}
+          {categories.map((cat) => cat.name).join(", ")}
+        </span>
+      )}
+    </div>
+
+    <h1 class="mb-6 text-3xl font-bold text-gray-900">{post.title}</h1>
+
+    {imageUrl ? (
+      <img src={imageUrl} alt={imageAlt} class="mb-8 w-full rounded-lg" />
+    ) : (
+      <ImagePlaceholder class="mb-8 rounded-lg" />
+    )}
+
+    <div class="wp-content" set:html={sanitizeHtml(post.content)} />
+
+    <div class="mt-10 border-t border-gray-200 pt-6">
+      <a href={buildUrl(lang, "blog")} class="text-blue-600 hover:underline">
+        &larr; {t("blog.back")}
+      </a>
+    </div>
+  </main>
+</Layout>

@@ -1,0 +1,22 @@
+---
+import BlogListView from "../../../theme/views/BlogListView.astro";
+import { getPosts } from "../../../lib/blog";
+import { isSupportedLocale } from "../../../i18n/I18nUtils";
+
+const { lang } = Astro.params;
+
+if (!lang || !isSupportedLocale(lang)) {
+  return Astro.rewrite("/404");
+}
+
+let posts;
+
+try {
+  posts = await getPosts(lang);
+} catch (error) {
+  console.error("[lang/blog] Error fetching data:", error);
+  return Astro.rewrite("/500");
+}
+---
+
+<BlogListView posts={posts} />

@@ -1,0 +1,30 @@
+---
+import "../styles/global.css";
+import { getLangFromUrl } from "../../i18n/I18nUtils";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const lang = getLangFromUrl(Astro.url);
+const { title = "Astro WordPress Starter", description = "" } = Astro.props;
+const feedUrl = `/${lang}/blog/feed/`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={Astro.url.href} />
+    <link rel="alternate" type="application/rss+xml" title={`RSS Feed (${lang})`} href={feedUrl} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

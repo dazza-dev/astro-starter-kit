@@ -1,0 +1,202 @@
+/* WordPress Content Styles */
+/* Applied to all pages that render WordPress content */
+/* Usage: Add class="wp-content" to any container with WordPress HTML */
+
+.wp-content {
+  font-size: 1.125rem;
+}
+
+/* h1 inside wp-content is styled as h2 to avoid duplicate h1 on the page
+   (the page title is already rendered as h1 by the view) */
+.wp-content h1 {
+  color: var(--color-text-heading, #111827);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  margin: 1.5rem 0 1rem 0;
+}
+
+.wp-content h2 {
+  color: var(--color-text-heading, #111827);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  margin: 1.5rem 0 1rem 0;
+}
+
+.wp-content h3 {
+  color: var(--color-text-heading, #111827);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+  margin: 1.25rem 0 0.75rem 0;
+}
+
+.wp-content h4 {
+  color: var(--color-text-heading, #111827);
+  font-weight: 600;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  margin: 1rem 0 0.75rem 0;
+}
+
+.wp-content p {
+  margin: 0 0 1.25rem 0;
+  line-height: 1.8;
+}
+
+.wp-content a {
+  color: var(--color-brand, #6366f1);
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wp-content a {
+    transition: color 0.2s;
+  }
+}
+
+.wp-content a:hover {
+  color: var(--color-brand-hover, #4f46e5);
+}
+
+.wp-content a:focus-visible {
+  outline: 2px solid var(--color-brand, #6366f1);
+  outline-offset: 2px;
+}
+
+.wp-content strong,
+.wp-content b {
+  font-weight: 700;
+  color: var(--color-text-heading, #111827);
+}
+
+.wp-content em,
+.wp-content i {
+  font-style: italic;
+}
+
+.wp-content ul {
+  margin: 0 0 1rem 1.5rem;
+  padding-left: 0;
+  list-style-type: disc;
+}
+
+.wp-content ol {
+  margin: 0 0 1rem 1.5rem;
+  padding-left: 0;
+  list-style-type: decimal;
+}
+
+.wp-content li {
+  margin-bottom: 0.5rem;
+}
+
+.wp-content blockquote {
+  border-left: 4px solid var(--color-brand, #6366f1);
+  padding: 1rem 0 1rem 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #6b7280;
+  background: #f9fafb;
+}
+
+.wp-content code {
+  background: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+.wp-content pre {
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.wp-content pre code {
+  background: none;
+  padding: 0;
+}
+
+.wp-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.wp-content figure {
+  margin: 1.5rem 0;
+}
+
+.wp-content figcaption {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.wp-content iframe {
+  max-width: 100%;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.wp-content .wp-block-embed,
+.wp-content .wp-block-video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.wp-content .wp-block-embed iframe,
+.wp-content .wp-block-video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wp-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.wp-content th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-heading, #111827);
+  padding: 0.75rem;
+  border-bottom: 2px solid #d1d5db;
+}
+
+.wp-content td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.wp-content hr {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 2rem 0;
+}
+
+.wp-content .wp-block-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.wp-content .wp-block-gallery figure {
+  margin: 0;
+}
+
+.wp-content .wp-block-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

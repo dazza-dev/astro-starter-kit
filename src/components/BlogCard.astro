@@ -1,0 +1,43 @@
+---
+import { getLangFromUrl } from "../i18n/I18nUtils";
+import { buildUrl } from "../lib/url";
+import { stripHtml } from "../lib/utils";
+import ImagePlaceholder from "./ImagePlaceholder.astro";
+import type { Post } from "../types/blog";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+
+const imageUrl = post.featuredImage?.node.sourceUrl;
+const imageAlt = post.featuredImage?.node.altText || post.title;
+const excerpt = post.excerpt ? stripHtml(post.excerpt) : "";
+const date = new Date(post.date).toLocaleDateString(lang, {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+const categories = post.categories?.nodes ?? [];
+---
+
+<a
+  href={buildUrl(lang, "blog", post.slug)}
+  class="block overflow-hidden rounded-lg border border-gray-200 motion-safe:transition hover:shadow-md"
+>
+  {imageUrl ? (
+    <img src={imageUrl} alt={imageAlt} class="aspect-video w-full object-cover" loading="lazy" />
+  ) : (
+    <ImagePlaceholder />
+  )}
+  <div class="p-4">
+    <div class="mb-1 text-sm text-gray-500">
+      <time>{date}</time>
+      {categories.length > 0 && <span> &middot; {categories[0].name}</span>}
+    </div>
+    <h3 class="mb-1 text-lg font-semibold text-gray-900">{post.title}</h3>
+    {excerpt && <p class="line-clamp-2 text-sm text-gray-600">{excerpt}</p>}
+  </div>
+</a>
